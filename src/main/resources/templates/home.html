@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{'/css/product.css'}" rel="stylesheet"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/dataTables.jqueryui.min.css"/>
+
+</head>
+<body>
+<div class="modal-body row no-padding-top">
+    <div class="topnav">
+        <a style="float: left; font-size: 30px"><i class="fa fa-shopping-cart"></i></a>
+        <a>E-commerce with Elastic Search</a>
+        <div class="search-container">
+            <input class="search" type="text" placeholder="Search..">
+            <a id="searchButton" onclick="loadSearch()" style="float: right"><i class="fa fa-search"></i></a>
+
+        </div>
+    </div>
+    <div class="col-md-2 vl">
+        <div class="hl filters" style="text-align: center">FILTERS</div>
+        <div class="hl">
+            <div class="filters-category">PRICE</div>
+            <div class="filter-category-options">
+                <div th:each="price, iter:${priceRange}">
+                    <input style="margin-right: 16px;" type="checkbox" class="price" onchange="changeColor()"
+                           th:value="${price.getKey()}"
+                           th:text="${price.getKey()} + ' (' + ${price.getValue()} + ')'">
+                </div>
+            </div>
+        </div>
+        <div class="hl">
+            <div class="filters-category">COLOR</div>
+            <div class="filter-category-options">
+                <div th:each="color, iter:${colorCount}">
+                    <input style="margin-right: 16px;" type="checkbox" class="color" onchange="changeColor()"
+                           th:value="${color.getKey()}"
+                           th:text="${color.getKey()} + ' (' + ${color.getValue()} + ')'">
+                </div>
+            </div>
+        </div>
+        <div class="hl">
+            <div class="filters-category">BRAND</div>
+            <div class="filter-category-options">
+                <div th:each="brand, iter:${brandCount}">
+                    <input style="margin-right: 16px;" type="checkbox" class="brand" onchange="changeColor()"
+                           th:value="${brand.getKey()}"
+                           th:text="${brand.getKey()} + ' (' + ${brand.getValue()} + ')'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 no-padding-left no-padding-right">
+        <div class="hl filters">
+            <div class="display-inline">
+                <select class="size-gender" name="size" id="size" onchange="sizeChange()">
+                    <option selected>Size</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                </select>
+            </div>
+            <div class="display-inline">
+                <select class="size-gender" name="gender" id="gender" onchange="genderChange()">
+                    <option selected>Gender</option>
+                    <option value="Men">MEN</option>
+                    <option value="Women">WOMEN</option>
+                    <option value="Boys">BOYS</option>
+                    <option value="Girls">GIRLS</option>
+                </select>
+            </div>
+            <div class="display-inline">
+                <select class="sort-by" name="sort" id="sort" onchange="sortBy()">
+                    <option value="asc">Low to High</option>
+                    <option value="desc">High to Low</option>
+                    <option value="new">Whats New</option>
+                    <option value="rating">Customer Rating</option>
+                </select>
+            </div>
+        </div>
+        <div class="product-list" id="products">
+            <table class="table table-striped" id="productTable">
+                <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Gender</th>
+                    <th>Price</th>
+                    <th>Brand</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script th:src="@{'/js/product.js'}"></script>
+</body>
+</html>
